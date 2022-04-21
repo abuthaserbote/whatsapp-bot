@@ -46,7 +46,22 @@ Asena.addCommand(
     }
   }
 )
-
+Asena.addCommand({on: 'text', fromMe: false}, (async (message, match) => {
+        if(Config.BGMFILTER){
+            var uri = encodeURI(match[1])
+        let banned = jid.find( Jid => Jid === message.jid);
+        if(banned !== undefined) return
+        if (!!message.mention && message.mention[0] == '918606413490@s.whatsapp.net') {
+await message.client.sendMessage(message.jid, fs.readFileSync('./media/bgm/Food.mp3'), MessageType.audio, { mimetype: Mimetype.mp4Audio,duration: Config.SAID, quoted : message.data, ptt: true})
+        }
+        if (!!message.mention && message.mention[0] == Config.MENTION) {
+await message.client.sendMessage(message.jid, fs.readFileSync('./media/bgm/Good.mp3'), MessageType.audio, { mimetype: Mimetype.mp4Audio,duration: Config.SAID, quoted : message.data, ptt: true})
+        }
+        
+const array = ['500 Dollars','ABUTHA']
+array.map( async (a) => {
+let pattern = new RegExp(`\\b${a}\\b`, 'g');
+if(pattern.test(message.message)){
 Asena.addCommand(
   { pattern: "stop ?(.*)", fromMe: fm, desc: Lang.STOP_DESC },
   async (message, match) => {
